@@ -1,0 +1,219 @@
+/* Filament Location Package Styles */
+
+.filament-location-picker {
+    position: relative;
+}
+
+.filament-location-picker .map-container {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+.filament-location-column {
+    display: inline-flex;
+    align-items: center;
+}
+
+.filament-location-column button {
+    transition: all 0.2s ease-in-out;
+}
+
+.filament-location-column button:hover {
+    transform: scale(1.05);
+}
+
+/* Modal styles */
+.filament-location-modal {
+    backdrop-filter: blur(4px);
+}
+
+.filament-location-modal .modal-content {
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.filament-location-modal .map-container {
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Loading states */
+.filament-location-loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+/* Error states */
+.filament-location-error {
+    border-color: #ef4444;
+    background-color: #fef2f2;
+}
+
+/* Success states */
+.filament-location-success {
+    border-color: #10b981;
+    background-color: #f0fdf4;
+}
+
+/* Responsive design */
+@media (max-width: 640px) {
+    .filament-location-modal .modal-content {
+        margin: 1rem;
+        max-height: calc(100vh - 2rem);
+    }
+
+    .filament-location-picker .control-buttons {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .filament-location-picker .control-buttons button {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* Map marker animations */
+@keyframes bounce {
+
+    0%,
+    20%,
+    53%,
+    80%,
+    100% {
+        transform: translate3d(0, 0, 0);
+    }
+
+    40%,
+    43% {
+        transform: translate3d(0, -30px, 0);
+    }
+
+    70% {
+        transform: translate3d(0, -15px, 0);
+    }
+
+    90% {
+        transform: translate3d(0, -4px, 0);
+    }
+}
+
+.filament-location-marker-bounce {
+    animation: bounce 1s ease;
+}
+
+/* Custom scrollbar for modal content */
+.filament-location-modal .modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.filament-location-modal .modal-content::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 3px;
+}
+
+.filament-location-modal .modal-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 3px;
+}
+
+.filament-location-modal .modal-content::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Coordinate display styling */
+.filament-location-coordinates {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", monospace;
+    font-size: 0.875rem;
+    letter-spacing: 0.025em;
+}
+
+/* Button hover effects */
+.filament-location-button {
+    position: relative;
+    overflow: hidden;
+}
+
+.filament-location-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent);
+    transition: left 0.5s;
+}
+
+.filament-location-button:hover::before {
+    left: 100%;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    .filament-location-picker {
+        color: #f8fafc;
+    }
+
+    .filament-location-modal .modal-content {
+        background-color: #1e293b;
+        color: #f8fafc;
+    }
+
+    .filament-location-modal .modal-content::-webkit-scrollbar-track {
+        background: #334155;
+    }
+
+    .filament-location-modal .modal-content::-webkit-scrollbar-thumb {
+        background: #64748b;
+    }
+
+    .filament-location-modal .modal-content::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+    }
+}
+
+/* Focus styles for accessibility */
+.filament-location-button:focus,
+.filament-location-column button:focus {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+
+    .filament-location-picker .map-container,
+    .filament-location-modal .map-container {
+        border: 2px solid currentColor;
+    }
+
+    .filament-location-button,
+    .filament-location-column button {
+        border: 2px solid currentColor;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .filament-location-column button {
+        transition: none;
+    }
+
+    .filament-location-column button:hover {
+        transform: none;
+    }
+
+    .filament-location-marker-bounce {
+        animation: none;
+    }
+
+    .filament-location-button::before {
+        transition: none;
+    }
+}

@@ -1,0 +1,53 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        // Example migration for adding location fields to users table
+        // Users can modify this to fit their needs
+        
+        Schema::table('users', function (Blueprint $table) {
+            $table->decimal('latitude', 10, 8)->nullable()->after('email');
+            $table->decimal('longitude', 11, 8)->nullable()->after('latitude');
+            $table->timestamp('location_updated_at')->nullable()->after('longitude');
+        });
+        
+        // Or create a dedicated locations table
+        Schema::create('locations', function (Blueprint $table) {
+            $table->id();
+            $table->morphs('locatable'); // For polymorphic relationships
+            $table->decimal('latitude', 10, 8);
+            $table->decimal('longitude', 11, 8);
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('country')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->json('metadata')->nullable(); // For additional location data
+            $table->timestamps();
+            
+            $table->index(['locatable_type', 'locatable_id']);
+            $table->index(['latitude', 'longitude']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->dropColumn(['latitude', 'longitude', 'location_updated_at']);
+        // });
+        
+        Schema::dropIfExists('locations');
+    }
+}; 

@@ -1,0 +1,23 @@
+parameters:
+    ignoreErrors:
+        -
+            message: "#Method .+::evaluate\\(\\) should return .+ but returns mixed#"
+            count: 12
+            path: src/Forms/Components/LocationPicker.php
+
+        -
+            message: "#Method .+::evaluate\\(\\) should return .+ but returns mixed#"
+            count: 12
+            path: src/Tables/Columns/LocationColumn.php
+
+        -
+            message: "#Expected type 'string'. Found 'Closure'#"
+            paths:
+                - src/Forms/Components/LocationPicker.php
+                - src/Tables/Columns/LocationColumn.php
+
+        -
+            message: "#Expected type 'array'. Found 'Closure'#"
+            paths:
+                - src/Forms/Components/LocationPicker.php
+                - src/Tables/Columns/LocationColumn.php 

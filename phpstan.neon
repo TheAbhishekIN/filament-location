@@ -1,0 +1,22 @@
+includes:
+    - phpstan-baseline.neon
+
+parameters:
+    level: 6
+    paths:
+        - src
+    excludePaths:
+        - src/Contracts
+    tmpDir: build/phpstan
+    checkOctaneCompatibility: true
+    checkModelProperties: true
+    checkMissingIterableValueType: false
+    
+    # Filament specific configurations
+    ignoreErrors:
+        - '#Call to an undefined method .+::evaluate\(\)#'
+        - '#Access to an undefined property .+::\$evaluate#'
+        - '#Method .+::getLivewire\(\) has no return type specified#'
+        
+    # Laravel specific configurations
+    treatPhpDocTypesAsCertain: false 

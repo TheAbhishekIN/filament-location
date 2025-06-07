@@ -1,7 +1,109 @@
- # Dependencies
+# Dependencies
 /vendor/
 composer.lock
 node_modules/
 package-lock.json
 yarn.lock
+
+# IDE & Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.tmp
+
+# PHP specific
+*.log
+.phpunit.result.cache
+.phpunit.cache/
+.php_cs.cache
+.php-cs-fixer.cache
+
+# Testing & Coverage
+coverage/
+.coverage
+coverage.xml
+coverage.txt
+/build/
+.phpunit.cache
+phpunit.xml
+.pest/
+
+# Build artifacts
+/dist/
+/public/build/
+/public/mix-manifest.json
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.env.testing
+
+# Cache directories
+/bootstrap/cache/
+/storage/framework/cache/
+/storage/framework/sessions/
+/storage/framework/testing/
+/storage/framework/views/
+/storage/logs/
+
+# Laravel Mix
+/public/css/
+/public/js/
+/public/hot
+/public/storage
+
+# Temporary files
+*.cache
+*.pid
+*.seed
+*.pid.lock
+
+# Documentation builds
+/docs/_build/
+
+# Package specific
+/resources/views/compiled/
+*.compiled.php
+
+# Backup files
+*.bak
+*.backup
+
+# Archives
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Symfony
+###> symfony/framework-bundle ###
+/.env.local
+/.env.local.php
+/.env.*.local
+/config/secrets/prod/prod.decrypt.private.php
+/public/bundles/
+/var/
+/vendor/
+###< symfony/framework-bundle ###
+
+# PHPStorm
+###> phpstorm ###
+.idea/
+###< phpstorm ###
 

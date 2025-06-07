@@ -17,7 +17,7 @@
 >
     <div
         x-data="locationPicker({
-            state: $wire.entangle('{{ $statePath }}'),
+            state: $wire.entangle('{{ $statePath }}').defer,
             zoom: {{ $zoom }},
             mapType: '{{ $mapType }}',
             showMap: {{ $showMap ? 'true' : 'false' }},
@@ -28,6 +28,7 @@
         })"
         x-init="init()"
         class="filament-location-picker"
+        x-on:alpine:init="console.log('LocationPicker initialized with statePath: {{ $statePath }}')"
     >
         <!-- Control Buttons -->
         <div class="mb-4 flex gap-2">

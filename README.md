@@ -328,6 +328,52 @@ http://localhost:8000
 https://your-app.test
 ```
 
+## Troubleshooting
+
+### Common Issues
+
+#### 1. Livewire Entanglement Error
+
+**Error:** `Livewire property ['data.location'] cannot be found`
+
+**Solution:** Ensure your Livewire component has the property that matches your field name:
+
+```php
+// ❌ Wrong - Component doesn't have 'location' property
+class OrdersStep extends Component
+{
+    public $data = []; // Missing 'location' key
+}
+
+// ✅ Correct - Component has the location property
+class OrdersStep extends Component
+{
+    public $location = null; // Direct property
+    // OR
+    public $data = [
+        'location' => null, // Nested property
+    ];
+}
+```
+
+#### 2. HTTPS/Security Errors
+
+**Error:** `Only secure origins are allowed`
+
+**Solutions:**
+
+- Use HTTPS in production: `https://yourdomain.com`
+- Use localhost for development: `http://localhost:8000`
+- Use Valet/Herd with SSL: `https://yourapp.test`
+
+#### 3. Error Messages Not Showing
+
+If error messages aren't displaying:
+
+1. **Check console logs** for JavaScript errors
+2. **Verify Alpine.js** is loaded before the LocationPicker
+3. **Ensure CSS is published**: `php artisan vendor:publish --tag=filament-location-assets`
+
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.

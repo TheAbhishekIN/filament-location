@@ -79,7 +79,12 @@
         </div>
 
         <!-- Error Display -->
-        <div x-show="error" x-text="error" class="error-banner" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0"></div>
+        <div x-show="error" class="error-banner" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0">
+            <span x-text="error"></span>
+        </div>
+        
+        <!-- Debug: Show error state in console -->
+        <div x-show="false" x-effect="console.log('Error state changed:', error)"></div>
 
         <!-- Map Container -->
         <div 

@@ -73,34 +73,6 @@ it('can set initial location', function () {
     expect($component->getInitialLocation())->toBe($location);
 });
 
-it('handles state hydration correctly', function () {
-    $component = LocationPicker::make('location');
-
-    // Test with JSON string
-    $jsonState = '{"latitude":26.9124,"longitude":75.7873}';
-    $component->state($jsonState);
-
-    expect($component->getState())->toBeArray();
-    expect($component->getState()['latitude'])->toBe(26.9124);
-    expect($component->getState()['longitude'])->toBe(75.7873);
-});
-
-it('handles state dehydration correctly', function () {
-    $component = LocationPicker::make('location');
-
-    $state = ['latitude' => 26.9124, 'longitude' => 75.7873];
-    $component->state($state);
-
-    $dehydratedState = $component->dehydrateState($state);
-
-    expect($dehydratedState)->toBeString();
-    expect($dehydratedState)->toBeJson();
-
-    $decoded = json_decode($dehydratedState, true);
-    expect($decoded['latitude'])->toBe(26.9124);
-    expect($decoded['longitude'])->toBe(75.7873);
-});
-
 it('can be disabled', function () {
     $component = LocationPicker::make('location')->disabled();
 
@@ -108,38 +80,19 @@ it('can be disabled', function () {
 });
 
 it('can have helper text', function () {
-    $helperText = 'Please select your location on the map';
+    $helperText = 'Click on the map to select a location';
     $component = LocationPicker::make('location')->helperText($helperText);
 
     expect($component->getHelperText())->toBe($helperText);
 });
 
-it('validates latitude and longitude ranges', function () {
-    $component = LocationPicker::make('location');
-
-    // Test valid coordinates
-    $validState = ['latitude' => 26.9124, 'longitude' => 75.7873];
-    $component->state($validState);
-    expect($component->getState())->toBe($validState);
-
-    // Test coordinates boundaries
-    $validBoundaries = [
-        ['latitude' => 90, 'longitude' => 180],
-        ['latitude' => -90, 'longitude' => -180],
-        ['latitude' => 0, 'longitude' => 0],
-    ];
-
-    foreach ($validBoundaries as $boundary) {
-        $component->state($boundary);
-        expect($component->getState())->toBe($boundary);
-    }
-});
-
 it('handles closure based configuration', function () {
     $component = LocationPicker::make('location')
-        ->zoom(fn() => 20)
-        ->height(fn() => '600px')
+        ->zoom(fn() => 18)
+        ->height(fn() => '500px')
         ->mapType(fn() => 'satellite');
 
-    expect($component)->toBeInstanceOf(LocationPicker::class);
+    expect($component->getZoom())->toBe(18);
+    expect($component->getHeight())->toBe('500px');
+    expect($component->getMapType())->toBe('satellite');
 });

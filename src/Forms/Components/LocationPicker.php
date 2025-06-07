@@ -31,6 +31,8 @@ class LocationPicker extends Field
 
     protected array | \Closure $mapControls = [];
 
+    protected array | \Closure $initialLocation = [];
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -172,6 +174,13 @@ class LocationPicker extends Field
         return $this;
     }
 
+    public function initialLocation(array | \Closure $location): static
+    {
+        $this->initialLocation = $location;
+
+        return $this;
+    }
+
     public function getLatitudeField(): ?string
     {
         return $this->evaluate($this->latitudeField);
@@ -234,7 +243,16 @@ class LocationPicker extends Field
      */
     public function getInitialLocation(): array
     {
-        // Check component's own state first
+        // Check explicitly set initial location first
+        $initialLocation = $this->evaluate($this->initialLocation);
+        if (is_array($initialLocation) && isset($initialLocation['latitude'], $initialLocation['longitude'])) {
+            return [
+                'latitude' => $initialLocation['latitude'] ? (float) $initialLocation['latitude'] : null,
+                'longitude' => $initialLocation['longitude'] ? (float) $initialLocation['longitude'] : null,
+            ];
+        }
+
+        // Check component's own state
         $state = $this->getState();
         if (is_array($state) && isset($state['latitude'], $state['longitude'])) {
             return [

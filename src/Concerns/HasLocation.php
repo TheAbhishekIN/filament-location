@@ -187,4 +187,66 @@ trait HasLocation
         return in_array($column, $this->getFillable()) ||
             array_key_exists($column, $this->getCasts());
     }
+
+    /**
+     * Generate Google Maps URL for the given coordinates.
+     */
+    protected function generateGoogleMapsUrl(float $latitude, float $longitude, ?int $zoom = null): ?string
+    {
+        if (!$this->isValidCoordinate($latitude, $longitude)) {
+            return null;
+        }
+
+        $url = "https://www.google.com/maps?q={$latitude},{$longitude}";
+
+        if ($zoom) {
+            $url .= "&z={$zoom}";
+        }
+
+        return $url;
+    }
+
+    /**
+     * Validate latitude value.
+     */
+    protected function isValidLatitude(?float $latitude): bool
+    {
+        return $latitude !== null && $latitude >= -90 && $latitude <= 90;
+    }
+
+    /**
+     * Validate longitude value.
+     */
+    protected function isValidLongitude(?float $longitude): bool
+    {
+        return $longitude !== null && $longitude >= -180 && $longitude <= 180;
+    }
+
+    /**
+     * Validate coordinate pair.
+     */
+    protected function isValidCoordinate(?float $latitude, ?float $longitude): bool
+    {
+        return $this->isValidLatitude($latitude) && $this->isValidLongitude($longitude);
+    }
+
+    /**
+     * Format coordinates for display.
+     */
+    protected function formatCoordinates(float $latitude, float $longitude, int $precision = 6): string
+    {
+        return sprintf(
+            '%.6f, %.6f',
+            round($latitude, $precision),
+            round($longitude, $precision)
+        );
+    }
+
+    /**
+     * Convert degrees to radians.
+     */
+    protected function degreesToRadians(float $degrees): float
+    {
+        return deg2rad($degrees);
+    }
 }

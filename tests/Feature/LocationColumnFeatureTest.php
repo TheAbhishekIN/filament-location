@@ -81,8 +81,16 @@ it('can set custom location getters', function () {
         ->getLatitudeUsing(fn($record) => $record->custom_lat)
         ->getLongitudeUsing(fn($record) => $record->custom_lng);
 
-    expect($column->getLatitudeUsing)->not->toBeNull();
-    expect($column->getLongitudeUsing)->not->toBeNull();
+    // Test that the column was configured properly by using it with a test record
+    $record = new class extends Model {
+        public $custom_lat = 26.9124;
+        public $custom_lng = 75.7873;
+    };
+
+    $locationData = $column->getLocationData($record);
+    expect($locationData['latitude'])->toBe(26.9124);
+    expect($locationData['longitude'])->toBe(75.7873);
+    expect($locationData['hasLocation'])->toBeTrue();
 });
 
 it('extracts location data from record', function () {
@@ -117,23 +125,6 @@ it('handles missing location data', function () {
     expect($locationData['latitude'])->toBeNull();
     expect($locationData['longitude'])->toBeNull();
     expect($locationData['hasLocation'])->toBeFalse();
-});
-
-it('uses custom getters for location data', function () {
-    $record = new class extends Model {
-        public $custom_lat = 26.9124;
-        public $custom_lng = 75.7873;
-    };
-
-    $column = LocationColumn::make('location')
-        ->getLatitudeUsing(fn($record) => $record->custom_lat)
-        ->getLongitudeUsing(fn($record) => $record->custom_lng);
-
-    $locationData = $column->getLocationData($record);
-
-    expect($locationData['latitude'])->toBe(26.9124);
-    expect($locationData['longitude'])->toBe(75.7873);
-    expect($locationData['hasLocation'])->toBeTrue();
 });
 
 it('returns default map controls', function () {

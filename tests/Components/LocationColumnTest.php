@@ -108,8 +108,16 @@ class LocationColumnTest extends TestCase
             ->getLatitudeUsing(fn($record) => $record->custom_lat)
             ->getLongitudeUsing(fn($record) => $record->custom_lng);
 
-        $this->assertNotNull($column->getLatitudeUsing);
-        $this->assertNotNull($column->getLongitudeUsing);
+        // Test that the column was configured properly by using it with a test record
+        $record = new class extends Model {
+            public $custom_lat = 26.9124;
+            public $custom_lng = 75.7873;
+        };
+
+        $locationData = $column->getLocationData($record);
+        $this->assertEquals(26.9124, $locationData['latitude']);
+        $this->assertEquals(75.7873, $locationData['longitude']);
+        $this->assertTrue($locationData['hasLocation']);
     }
 
     /** @test */
@@ -160,25 +168,6 @@ class LocationColumnTest extends TestCase
         $this->assertNull($locationData['latitude']);
         $this->assertNull($locationData['longitude']);
         $this->assertFalse($locationData['hasLocation']);
-    }
-
-    /** @test */
-    public function it_uses_custom_getters_for_location_data()
-    {
-        $record = new class extends Model {
-            public $custom_lat = 26.9124;
-            public $custom_lng = 75.7873;
-        };
-
-        $column = LocationColumn::make('location')
-            ->getLatitudeUsing(fn($record) => $record->custom_lat)
-            ->getLongitudeUsing(fn($record) => $record->custom_lng);
-
-        $locationData = $column->getLocationData($record);
-
-        $this->assertEquals(26.9124, $locationData['latitude']);
-        $this->assertEquals(75.7873, $locationData['longitude']);
-        $this->assertTrue($locationData['hasLocation']);
     }
 
     /** @test */

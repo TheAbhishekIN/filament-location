@@ -46,8 +46,8 @@ class TestCase extends Orchestra
         // Set up Filament Location configuration
         config()->set('filament-location.google_maps_api_key', 'test-api-key');
         config()->set('filament-location.default_zoom', 15);
-        config()->set('filament-location.default_height', '400px');
-        config()->set('filament-location.default_map_type', 'standard');
+        config()->set('filament-location.map_height', '400px');
+        config()->set('filament-location.map_type', 'standard');
         config()->set('filament-location.enable_high_accuracy', true);
         config()->set('filament-location.location_timeout', 10000);
         config()->set('filament-location.map_controls', [

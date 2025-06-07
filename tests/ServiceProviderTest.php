@@ -43,8 +43,8 @@ class ServiceProviderTest extends TestCase
         // Test that configuration is loaded
         $this->assertNotNull(config('filament-location.google_maps_api_key'));
         $this->assertEquals(15, config('filament-location.default_zoom'));
-        $this->assertEquals('400px', config('filament-location.default_height'));
-        $this->assertEquals('standard', config('filament-location.default_map_type'));
+        $this->assertEquals('400px', config('filament-location.map_height'));
+        $this->assertEquals('standard', config('filament-location.map_type'));
         $this->assertTrue(config('filament-location.enable_high_accuracy'));
         $this->assertEquals(10000, config('filament-location.location_timeout'));
     }
@@ -83,10 +83,12 @@ class ServiceProviderTest extends TestCase
         $requiredKeys = [
             'google_maps_api_key',
             'default_zoom',
-            'default_height',
-            'default_map_type',
-            'enable_high_accuracy',
+            'map_height',
+            'enable_street_view',
+            'map_type',
+            'location_accuracy',
             'location_timeout',
+            'enable_high_accuracy',
             'map_controls'
         ];
 
@@ -132,7 +134,7 @@ class ServiceProviderTest extends TestCase
     public function it_validates_map_type_values()
     {
         $validMapTypes = ['standard', 'satellite', 'hybrid', 'terrain'];
-        $defaultMapType = config('filament-location.default_map_type');
+        $defaultMapType = config('filament-location.map_type');
 
         $this->assertContains($defaultMapType, $validMapTypes);
     }
@@ -164,7 +166,7 @@ class ServiceProviderTest extends TestCase
     /** @test */
     public function default_height_is_valid_css()
     {
-        $height = config('filament-location.default_height');
+        $height = config('filament-location.map_height');
         $this->assertIsString($height);
 
         // Should contain px, %, em, rem, or vh

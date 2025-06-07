@@ -9,14 +9,14 @@ A powerful Filament package for collecting and displaying user locations with Go
 
 ## Features
 
--   🗺️ **LocationPicker**: Interactive Google Maps component for forms
--   📍 **LocationColumn**: Display locations in tables with clickable map modals
--   🎯 **Current Location**: Get user's current location with GPS
--   🔧 **Highly Customizable**: Configurable zoom, map types, controls, and styling
--   📱 **Responsive Design**: Works perfectly on desktop and mobile
--   🌍 **Multiple Location Types**: Support for home, office, check-in/out locations
--   📊 **Distance Calculations**: Built-in distance calculation utilities
--   🎨 **Custom Icons**: Predefined and custom icon support
+- 🗺️ **LocationPicker**: Interactive Google Maps component for forms
+- 📍 **LocationColumn**: Display locations in tables with clickable map modals
+- 🎯 **Current Location**: Get user's current location with GPS
+- 🔧 **Highly Customizable**: Configurable zoom, map types, controls, and styling
+- 📱 **Responsive Design**: Works perfectly on desktop and mobile
+- 🌍 **Multiple Location Types**: Support for home, office, check-in/out locations
+- 📊 **Distance Calculations**: Built-in distance calculation utilities
+- 🎨 **Custom Icons**: Predefined and custom icon support
 
 ## Installation
 
@@ -262,13 +262,13 @@ LocationColumn::make('location')
 
 ## Use Cases
 
--   **Employee Management**: Track employee locations for check-in/check-out
--   **Customer Management**: Store customer addresses and locations
--   **Venue Management**: Manage multiple business locations
--   **Event Management**: Record event locations and venue details
--   **Delivery Services**: Track delivery addresses and routes
--   **Real Estate**: Manage property locations
--   **Healthcare**: Patient and facility location management
+- **Employee Management**: Track employee locations for check-in/check-out
+- **Customer Management**: Store customer addresses and locations
+- **Venue Management**: Manage multiple business locations
+- **Event Management**: Record event locations and venue details
+- **Delivery Services**: Track delivery addresses and routes
+- **Real Estate**: Manage property locations
+- **Healthcare**: Patient and facility location management
 
 ## Distance Calculations
 
@@ -288,6 +288,46 @@ $nearbyUsers = User::withinDistance(26.9124, 75.7873, 10)->get();
 $usersByDistance = User::orderByDistance(26.9124, 75.7873)->get();
 ```
 
+## Security & HTTPS Requirements
+
+⚠️ **Important Security Notice:**
+
+The browser's Geolocation API requires a **secure context** to function properly. This means:
+
+- ✅ **HTTPS connections** (recommended for production)
+- ✅ **localhost** (for development)
+- ❌ **HTTP connections** will be blocked by modern browsers
+
+### Error Handling
+
+The package provides comprehensive error handling with user-friendly messages:
+
+| Error Type               | Message                                                     | Description                                      |
+| ------------------------ | ----------------------------------------------------------- | ------------------------------------------------ |
+| **HTTPS Required**       | 🔒 Location services require a secure connection (HTTPS)    | Browser blocks geolocation on non-secure origins |
+| **Permission Denied**    | 🚫 Location access denied. Please allow location permission | User explicitly denied location access           |
+| **Position Unavailable** | 📍 Location information is unavailable                      | Device can't determine location                  |
+| **Timeout**              | ⏱️ Location request timed out                               | Location request exceeded timeout limit          |
+
+All errors are displayed in a prominent **red banner** below the location button with:
+
+- 🎨 Enhanced styling with gradient background
+- 📱 Responsive design for mobile devices
+- ✨ Smooth slide-in animation
+- 🔍 Clear iconography and user-friendly messages
+
+### Development Setup
+
+For local development, ensure you're using:
+
+```bash
+# Use localhost (secure context)
+http://localhost:8000
+
+# Or use Herd/Valet with HTTPS
+https://your-app.test
+```
+
 ## Contributing
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
@@ -298,8 +338,8 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
--   [Abhishek Sharma](https://github.com/TheAbhishekIN)
--   [All Contributors](../../contributors)
+- [Abhishek Sharma](https://github.com/TheAbhishekIN)
+- [All Contributors](../../contributors)
 
 ## License
 

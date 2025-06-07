@@ -78,7 +78,7 @@
         </div>
 
         <!-- Error Display -->
-        <div x-show="error" x-text="error" class="mb-4 p-3 bg-red-50 text-red-700 text-sm rounded-lg"></div>
+        <div x-show="error" x-text="error" class="error-banner" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform -translate-y-2" x-transition:enter-end="opacity-100 transform translate-y-0"></div>
 
         <!-- Map Container -->
         <div 
